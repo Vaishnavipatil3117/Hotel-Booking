@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="stylesheet" th:href="@{/css/customer.css}">
+    <title>Admin Page</title>
+</head>
+
+<body class="bg-light">
+    <div class="container">
+    	<div class="heading-container">
+    		<h1>Welcome to the Admin Page</h1>
+    	</div>
+        <div class="button-container">
+            <a th:href="@{/customerinfo}" class="btn custom-btn btn-lg">Customer Information</a>
+            <a th:href="@{/booked}" class="btn custom-btn btn-lg">Booking Information</a>
+            <a th:href="@{/contactus}" class="btn custom-btn  btn-lg">ContactUs Information</a>
+        </div>
+    </div>
+</body>
+
+</html>

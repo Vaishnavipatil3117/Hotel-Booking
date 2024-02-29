@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/account.css}" />
+    <title>Customer Details</title>
+</head>
+<body>
+
+    <div class="customer-details">
+
+        <h1>Customer Details</h1>
+        
+        <!-- Use th:each to iterate over customers -->
+        <div th:each="customer : ${customers}">
+            <p class="text-center border-end"><strong>Id:</strong> <span th:text="${customer.id}"></span></p>
+            <p class="text-center border-end"><strong>Name:</strong> <span th:text="${customer.name}"></span></p>
+            <p class="text-center border-end"><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+            <p class="text-center border-end"><strong>Phone:</strong> <span th:text="${customer.phone}"></span></p>
+            <p class="text-center border-end"><strong>Gender:</strong> <span th:text="${customer.gender}"></span></p>
+            <p class="text-center border-end"><strong>Address:</strong> <span th:text="${customer.address}"></span></p>
+            <p class="text-center border-end"><strong>Password:</strong> <span th:text="${customer.password}"></span></p>
+        </div>
+    </div>
+</body>
+</html>

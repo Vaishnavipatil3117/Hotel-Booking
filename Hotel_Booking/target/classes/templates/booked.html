@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Booked </title>
+</head>
+
+<body class="bg-light">
+	                                   <!-- Contact Us -->
+	  <div class="my-5 px-4 mb-0">
+		<h2 class="fw-bold h-font text-center">Booking Information</h2>
+		<div class="h-line bg-dark"></div>
+	</div>
+    <div class="container-fluid" id="main-content">
+        <div class="row">
+            <div class="col-lg-12 ms-auto p-4 overflow-hidden">
+                <h3 class="mb-4"></h3>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive-md" style="height: 450px; overflow-y: scroll;">
+                            <table class="table table-hover border">
+                                <thead class="sticky-top">
+                                    <tr class="bg-dark text-white">
+                                        <th class="text-center border-end" scope="col">ID</th>
+                                        <th class="text-center border-end" scope="col">Customer Id</th>
+								        <th class="text-center border-end" scope="col">Check-in</th>
+								        <th class="text-center border-end" scope="col">Check-out</th>
+								        <th class="text-center border-end" scope="col">Adults</th>
+								        <th class="text-center border-end" scope="col">Children</th>
+								        <th class="text-center border-end" scope="col">Payment</th>
+								        <th class="text-center border-end" scope="col">Edit</th>
+								        <th class="text-center border-end" scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <tr th:each="bookedRoom : ${bookedRooms}">
+								        <td class="text-center border-end" th:text="${bookedRoom.id}"></td>
+								        <td class="text-center border-end" th:text="${bookedRoom.customer_id}"></td>
+								        <td class="text-center border-end" th:text="${bookedRoom.checkin}"></td>
+								        <td class="text-center border-end" th:text="${bookedRoom.checkout}"></td>
+								        <td class="text-center border-end" th:text="${bookedRoom.adults}"></td>
+								        <td class="text-center border-end" th:text="${bookedRoom.children}"></td>
+								        <td class="text-center border-end" th:text="${bookedRoom.payment}"></td>
+								        <td class="text-center border-end"><a style="color:blue" th:href="@{/editBooking/{id}(id=${bookedRoom.id})}" data-bs-toggle="modal" th:data-bs-target="'#editBookModal'+${bookedRoom.id}"><i class="bi bi-pencil-square"></i></a></td>
+                                        <td class="text-center border-end"><a style="color:red" th:href="@{/deleteBooking/{id}(id=${bookedRoom.id})}"><i class="bi bi-trash3-fill "></i></a></td>
+                                         <td>
+                                        
+                                            
+								 <div class="modal fade" th:id="'editBookModal'+${bookedRoom.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										<div class="modal-dialog modal-lg modal-dialog-centered">
+										  <div class="modal-content">
+										  	<form th:action="@{/updateBooking/{id}(id=${bookedRoom.id})}"  method="post" th:object="${bookEdit}">
+										  			<div class="modal-header d-flex align-items-center">
+														<h5 class="modal-title"><i class="bi bi-person-lines-fill fs-3 me-2"></i> Update Booking</h5>
+														<button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-6 ps-0 mb-3">
+																	<label for="customer_id" class="form-label">Your Id</label>
+										                			<input type="number" class="form-control" id="customer_id" placeholder="enter your id" name="customer_id" th:value="${bookedRoom != null ? bookedRoom.customer_id : ''}">
+																</div>
+																<div class="col-md-6 ps-0 mb-3">
+																	<label for="checkin" class="form-label">Check In</label>
+										               				<input type="date" class="form-control" id="checkin" placeholder="enter date" name="checkin" th:value="${bookedRoom != null ? bookedRoom.checkin : ''}">
+																</div>
+																<div class="col-md-6 ps-0 mb-3">
+																	<label for="checkout" class="form-label">Check Out</label>
+										                			<input type="date" class="form-control" id="checkout" placeholder="enter date" name="checkout" th:value="${bookedRoom != null ? bookedRoom.checkout : ''}">
+																</div>
+																<div class="col-md-6 ps-0 mb-3">
+																	 <label for="adults" class="form-label">Adult</label>
+										                			 <input type="text" class="form-control" id="adults" placeholder="number of adults" name="adults" th:value="${bookedRoom != null ? bookedRoom.adults : ''}">
+																</div>
+																<div class="col-md-6 ps-0 mb-3">
+																	<label for="children" class="form-label">Children</label>
+										                			<input type="text" class="form-control" id="children" placeholder="number of childrens" name="children" th:value="${bookedRoom != null ? bookedRoom.children : ''}">
+																</div>
+																<div class="col-md-6 ps-0 mb-3">
+																	<label for="payment" class="form-label">Payment</label>
+										               				<input type="text" class="form-control" id="payment" placeholder="enter payment" name="payment" th:value="${bookedRoom != null ? bookedRoom.payment : ''}">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="text-center my-1">
+										            	<button type="submit" class="btn btn-success">Update Info</button>
+										            </div>
+											   </form>
+										  </div>
+										</div>
+									  </div>
+                                     </td>
+								   </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+  
+                              
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+

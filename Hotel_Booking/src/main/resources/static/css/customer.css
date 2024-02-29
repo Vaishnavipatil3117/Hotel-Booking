@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    color: beige;
+}
+*{
+	font-family:'Poppins',sans-serif;
+	padding:0;
+	margin:0;
+	box-sizing:border-box;
+}
+
+.h-font{
+	font-family:'Merienda',cursive;
+}
+
+.h-line{
+	width: 150px;
+	margin: 0 auto;
+	height: 1.7px;
+}
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.custom-btn {
+    flex: 1;
+    max-width: 200px;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid #000000;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+}
+
+.custom-btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+}
+.heading-container {
+            margin-bottom: 50px; 
+            margin-left:60px;
+            color:#000000;
+        }
+/* Media query for small screens */
+@media (max-width: 767px) {
+    .custom-btn {
+        flex: 100%; 
+        max-width: none; /* Remove maximum width restriction */
+        margin-bottom: 10px; /* Add some space between stacked buttons */
+        text-decoration: none;
+    }
+}

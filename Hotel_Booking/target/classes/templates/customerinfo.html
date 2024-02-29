@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>CustomerInfo Panel</title>
+</head>
+
+<body class="bg-light">
+	<div class="my-5 px-4 mb-0">
+		<h2 class="fw-bold h-font text-center">Customer Information</h2>
+		<div class="h-line bg-dark"></div>
+	</div>
+    <div class="container-fluid" id="main-content">
+        <div class="row">
+            <div class="col-lg-12 ms-auto p-4 overflow-hidden">
+                <h3 class="mb-4"></h3>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive-md" style="height: 450px; overflow-y: scroll;">
+                            <table class="table table-hover border">
+                                <thead class="sticky-top">
+                                    <tr class="bg-dark text-white">
+                                        <th class="text-center border-end" scope="col">Id</th>
+                                        <th class="text-center border-end" scope="col">Name</th>
+                                        <th class="text-center border-end" scope="col">Email</th>
+                                        <th class="text-center border-end" scope="col">Phone</th>
+                                        <th class="text-center border-end" scope="col">Gender</th>
+                                        <th class="text-center border-end" scope="col">Address</th>
+                                        <th class="text-center border-end" scope="col">Edit Customer</th>
+                                        <th class="text-center border-end" scope="col">Delete Customer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="customer : ${customers}">
+                                        <td class="text-center border-end" th:text="${customer.id}"></td>
+                                        <td class="text-center border-end" th:text="${customer.name}"></td>
+                                        <td class="text-center border-end" th:text="${customer.email}"></td>
+                                        <td class="text-center border-end" th:text="${customer.phone}"></td>
+                                        <td class="text-center border-end" th:text="${customer.gender}"></td>
+                                        <td class="text-center border-end" th:text="${customer.address}"></td>
+                                        <td class="text-center border-end"><a style="color:blue" data-bs-toggle="modal" th:data-bs-target="'#signupModal'+${customer.id}"><i class="bi bi-pencil-square"></i></a></td>
+                                        <td class="text-center border-end"><a style="color:red" th:href="@{/delete/{id}(id=${customer.id})}"><i class="bi bi-trash3-fill "></i></a></td>
+                                        <td>      
+									 <div class="modal fade" th:id="'signupModal'+${customer.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<div class="modal-dialog modal-lg modal-dialog-centered">
+											  <div class="modal-content">
+											  	<form th:action="@{/update/{id}(id=${customer.id})}"  method="post" th:object="${customerEdit}">
+														<div class="modal-header d-flex align-items-center">
+															<h5 class="modal-title"><i class="bi bi-person-lines-fill fs-3 me-2"></i> Update User Information</h5>
+															<button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+														  </div>
+														  <div class="modal-body">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-md-6 ps-0 mb-3">
+																		<label for="name" class="form-label">Your Name</label>
+																		<input type="text" class="form-control shadow-none" id="name"   name="name" th:value="${customer != null ? customer.name : ''}">
+																	</div>
+																	<div class="col-md-6 p-0 mb-3">
+																		<label for="email" class="form-label">Email Address</label>
+																		<input type="text" class="form-control shadow-none" id="email" name="email"  th:value="${customer != null ? customer.email : ''}" required>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-6 ps-0 mb-3">
+																		<label for="phone" class="form-label">Phone</label>
+																		<input type="text" class="form-control shadow-none" id="phone" name="phone"  th:value="${customer != null ? customer.phone : ''}" required>
+																	</div>
+																	<div class="col-md-6 p-0 mb-3">
+																		<label for="gender" class="form-label">Gender</label>
+																		<input type="text" class="form-control shadow-none" id="gender" name="gender" th:value="${customer != null ? customer.gender : ''}" required>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-12 ps-0 mb-3">
+																		<label for="address" class="form-label">Address</label>
+																		<textarea class="form-control shadow-none" id="address" name="address" th:value="${customer != null ? customer.address : ''}" required></textarea>
+																	</div>
+																</div>
+																<div class="text-center my-1">
+																	<button type="submit" class="btn btn-dark shadow-none">Update Customer</button>
+																</div>
+															</div>
+														  </div>
+												   </form>
+											  </div>
+											</div>
+										  </div>
+                                    </td>     
+                                    </tr> 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	   
+	
+                                 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
